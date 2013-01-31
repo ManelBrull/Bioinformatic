@@ -1,0 +1,6 @@
+#Git ignore ... It doesn't ignore gitanos
+
+*.[oa]      # object files
+*~          # temprary files
+*.pdf       # documental stuff in pdf format
+
