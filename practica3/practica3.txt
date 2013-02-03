@@ -1,0 +1,32 @@
+Exercises
+
+    Try out some of the scripts from the lectures. Some of these are in directories /chalmers/users/kemp/MVE360/lecture3/ and /chalmers/users/kemp/MVE360/lecture4/.
+
+    Write a Perl program that reads a UniProt file and stores the sequence as a string in variable '$sequence', and then writes out the sequence of the protein with one line per residue. Each line of output should contain the residue's one-letter code and the residue's position in the sequence. The name of the UniProt file should be given as an argument on the command line.
+
+    Test your program with UniProt files P00784.uniprot (papaya proteinase I) and P00785.uniprot (kiwi fruit actinidin). These files are in directory /chalmers/users/kemp/MVE360/practical3/.
+
+        unix> ./sp_sequence.pl P00784.uniprot
+        M 1
+        A 2
+        M 3
+        ... etc.
+        unix>
+
+    Write a Perl program that reads a UniProt file and writes out the sequences of the alpha helices. There should be one line of output for each alpha helix in the protein. The name of the UniProt file should be given as an argument on the command line. The positions of alpha helices are indicated in a UniProt file on lines that begin with "FT   HELIX".
+
+    Study the program /chalmers/users/kemp/MVE360/lecture4/translate.pl
+
+    Generalise this program so that it prints the translations of a DNA sequence in all six possible reading frames (sequence as read in, in three phases; reverse complement, in three phases).
+
+    Modify the program reverse_complement.pl so that it can print the reverse complement of DNA sequences that contain nucleotide ambiguity codes ("Nomenclature for Incompletely Specified Bases in Nucleic Acid Sequences", Tables 1 and 2).
+
+    Modify the program embl_orf.pl so that it prints out the translated sequence of the longest open reading frame. The output should use one-letter amino-acid residue codes, and the output should have 10 characters per line.
+
+    Write a Perl program that reads a nucleotide sequence from an EMBL databank file, and finds the longest subsequence whose reverse complement is also present in the sequence.
+
+What to demonstrate or hand in
+
+Demonstrate your solutions to exercise 3 and 4.
+
+Ensure that your names are included in a comment in your program. 
