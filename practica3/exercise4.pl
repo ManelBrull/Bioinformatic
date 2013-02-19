@@ -38,38 +38,33 @@
 while ($nline = <DATA>) {
 
     #Normal version
-    print "Original -> $nline";
+    print $nline;
     chomp($nline);
     $line = $nline;    
     $line =~ s/(...)/\1 /g;
     @triplets = split(" ", $line);
-    print "Normal -> ";
     foreach $codon (@triplets) {
         print "$standardgeneticcode{$codon}";
     }
-    print "\n";
+    print "\n\n";
     
     $line = $nline;
     $line =~ /(.)(.+)/;
-    $line = $2.$1;
-    print "Moved one position -> $line\n";
+    $line = $2;
+    print "$line\n";
     $line =~ s/(...)/\1 /g;
     @triplets = split(" ", $line);
-    print "+1 position -> ";
     foreach $codon (@triplets) {
         print "$standardgeneticcode{$codon}";
     }
-    print "\n";
+    print "\n\n";
 
     $line = $nline;
-    for($i = 0; $i < 2; $i++) {
-        $line =~ /(.)(.+)/;
-        $line = $2.$1;
-    }
-    print "Moved two position -> $line\n";
+    $line =~ /(.)(.)(.+)/;
+    $line = $3;
+    print "$line\n";
     $line =~ s/(...)/\1 /g;
     @triplets = split(" ", $line);
-    print "+2 position -> ";
     foreach $codon (@triplets) {
         print "$standardgeneticcode{$codon}";
     }
@@ -77,47 +72,41 @@ while ($nline = <DATA>) {
 
     #Reversed version, the same just changing some stuff
 
-    $nline = scalar reverse($nline);
-
-    print "Reversed -> $nline\n";
-    $line = $nline;    
-    $line =~ s/(...)/\1 /g;
-    @triplets = split(" ", $line);
-    print "Reversed -> ";
-    foreach $codon (@triplets) {
-        print "$standardgeneticcode{$codon}";
-    }
-    print "\n";
+    $nlinerev = scalar reverse($nline);
+    $nlinerev =~ tr/gatc/ctag/;    
     
-    $line = $nline;
-    $line =~ /(.)(.+)/;
-    $line = $2.$1;
-    print "Reversed one position -> $line\n";
-    $line =~ s/(...)/\1 /g;
-    @triplets = split(" ", $line);
-    print "R+1 position -> ";
-    foreach $codon (@triplets) {
-        print "$standardgeneticcode{$codon}";
-    }
+    print $nlinerev;
     print "\n";
-
-    $line = $nline;
-    for($i = 0; $i < 2; $i++) {
-        $line =~ /(.)(.+)/;
-        $line = $2.$1;
-    }
-    print "Reversed two position -> $line\n";
+    chomp($nlinerev);
+    $line = $nlinerev;    
     $line =~ s/(...)/\1 /g;
     @triplets = split(" ", $line);
-    print "R+2 position -> ";
     foreach $codon (@triplets) {
         print "$standardgeneticcode{$codon}";
     }
-    print "\n\n\n\n";
+    print "\n\n";
+    
+    $line = $nlinerev;
+    $line =~ /(.)(.+)/;
+    $line = $2;
+    print "$line\n";
+    $line =~ s/(...)/\1 /g;
+    @triplets = split(" ", $line);
+    foreach $codon (@triplets) {
+        print "$standardgeneticcode{$codon}";
+    }
+    print "\n\n";
 
-
-
-
+    $line = $nlinerev;
+    $line =~ /(.)(.)(.+)/;
+    $line = $3;
+    print "$line\n";
+    $line =~ s/(...)/\1 /g;
+    @triplets = split(" ", $line);
+    foreach $codon (@triplets) {
+        print "$standardgeneticcode{$codon}";
+    }
+    print "\n\n";
 }
 
 
