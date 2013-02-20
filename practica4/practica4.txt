@@ -1,0 +1,8 @@
+This question is based on the last slide from the lecture on 2013-02-12.
+
+Write a Perl program that reads a set of aligned RNA sequences from a file specified on the command line and finds positions that are covarying to maintain Watson-Crick complementarity. You can assume that there is one sequence per line, and that the sequences contain only the characters a, c, g and u (no white space, gaps or ambiguity codes).
+
+You can test your program with multiple alignment files 'ma1' and 'ma2' in directory /chalmers/users/kemp/MVE360/practical4.
+
+(Hint: One approach is to work with an array whose elements are the sequences that you have read in from the file. An alternative approach is to construct an array whose elements are the columns in the alignment. This second approach requires a little more work at the start, but the main task - checking for covariance - is then much easier. I don't mind which approach you take, but I recommend the second approach, since I believe it's less work overall.)
+
