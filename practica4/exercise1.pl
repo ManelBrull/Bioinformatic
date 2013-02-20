@@ -35,7 +35,7 @@
 #en caso de cambiar la letra, la otra debe ser siempre su complementario. 
 #Sacar el par adecuado
 
-#MI idea es tener un array de strings
+#MI idea es tener un array de strings de las columnas que cambien
 
 $nameFile = $ARGV[0];
 open(SOURCE, $nameFile) || die "cannot open given file $!";
@@ -58,17 +58,54 @@ while ( $line = <SOURCE> ) {
 #It is needed beacuse we are going to simulate a matrix
 #Arrays of string is the answer
 
-@document = ();
+@changedColumns = ();
 
 
 for($col = 0; $col < $length; $col++) {
-    $tseq = "";
+    $tseq = "$col ";
     for($row = 0; $row < $numLines; $row++) {
         $preElement = &matrixNumber($row, $col, $length);
         $dataFile =~ /(.{$preElement})(.)(.*)/;
-        print "$2\n";
+        $tseq .= $2;
+    }
+
+    if( $tseq =~ /(\d+) (.*)/) {
+        if ($2 =~ /^(.)\1*$/ ) {
+            #I don´t know how to negate it properly
+        }
+        else {
+            push(@changedColumns, $tseq);
+        }
     }
 }
+
+print "@changedColumns\n";
+
+
+@pairs = (); #result
+
+while(@changedColumns) {
+    $ele = shift(@changedColumns); #ele to check
+    $ele =~ tr/gauc/cuag/;
+    @revisedElements = (); #Revised elements
+    $added = "false";
+    while(@changedColumns) {
+        $cEle = shift(@changedColumns); #element to compare with ele
+        $res = &compareColumns($ele, $cEle);
+        if($res eq "true" and $added eq "false") { #equal and not added, so we can add it
+            push(@pairs, &getPairs($ele, $cEle));
+            $added = "true";
+        }
+        else { #not equal or added before, so it is revised
+            push(@revisedElements, $cEle);
+        }
+    }
+    while(@revisedElements) { #we put the revised elements into the original array
+        $tEle = shift(@revisedElements);
+        push(@changedColumns, $tEle);
+    }
+}
+print "@pairs\n"; #printing the result
 
 
 sub matrixNumber{
@@ -79,6 +116,41 @@ sub matrixNumber{
     $length = shift;
     return($row*$length + $col);
 }
+
+sub compareColumns{
+    #input: string1, string2
+    #outup: true/false
+    #input format /d \w*$/
+    $s1 = shift;
+    $s2 = shift;
+    $s1 =~ /(\d+) (\w*)$/;
+    $s1 = $2;
+    $s2 =~ /(\d+) (\w*)$/;
+    $s2 = $2;
+    if($s1 eq $s2){
+        return("true");  
+    }
+    else {
+        return("false");
+    }
+}
+
+sub getPairs{
+    #input: string1, string2
+    #outup: (n1 - n2)
+    #input format /d \w*$/
+    $s1 = shift;
+    $s2 = shift;
+    $s1 =~ /(\d+) (.*)$/;
+    $s1 = $1;   
+    $s2 =~ /(\d+) (.*)$/;
+    $s2 = $1;
+    return( "(".$s1." - ".$s2.")");
+}
+
+
+
+
 
 
 
